@@ -1,0 +1,52 @@
+// Import the required packages
+const express = require('express');
+const app = express();
+
+// Serve the HTML file with the button to the client
+app.get('/', (req, res) => {
+  res.send(`
+    <html>
+      <head>
+        <style>
+          .button {
+            background-color: red;
+            color: white;
+          }
+        </style>
+      </head>
+      <body>
+        <button id="toggle-button" class="button">Click me</button>
+        <script>
+          const button = document.getElementById('toggle-button');
+          let color = 'red';
+          button.addEventListener('click', () => {
+            // Send a request to the server to toggle the color
+            fetch('/toggle-color').then(response => {
+              // Parse the response and toggle the button color
+              response.text().then(newColor => {
+                button.style.backgroundColor = newColor;
+                color = newColor;
+              });
+            });
+          });
+        </script>
+      </body>
+    </html>
+  `);
+});
+
+// Handle requests to toggle the button color
+let currentColor = 'red';
+app.get('/toggle-color', (req, res) => {
+  if (currentColor === 'red') {
+    currentColor = 'green';
+  } else {
+    currentColor = 'red';
+  }
+  res.send(currentColor);
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
