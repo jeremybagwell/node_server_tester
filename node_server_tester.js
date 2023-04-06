@@ -2,6 +2,9 @@
 const express = require('express');
 const app = express();
 
+const logger = require('js_logging_mnav')("node_server_tester")
+
+
 // Serve the HTML file with the button to the client
 app.get('/', (req, res) => {
   res.send(`
@@ -26,6 +29,7 @@ app.get('/', (req, res) => {
               response.text().then(newColor => {
                 button.style.backgroundColor = newColor;
                 color = newColor;
+
               });
             });
           });
@@ -40,8 +44,10 @@ let currentColor = 'red';
 app.get('/toggle-color', (req, res) => {
   if (currentColor === 'red') {
     currentColor = 'green';
+    logger.info(`currentColor = green`)
   } else {
     currentColor = 'red';
+    logger.info(`currentColor = red`)
   }
   res.send(currentColor);
 });
