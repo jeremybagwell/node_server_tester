@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/jeremybagwell/node_server_tester#readme",
   "dependencies": {
-    "express": "^4.18.2",
-    "js_logging_mnav": "file:../js_logging_mnav"
+    "express": "^4.18.2"
   }
 }
